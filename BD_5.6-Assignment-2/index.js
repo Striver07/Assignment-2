@@ -7,7 +7,8 @@ let { employeeDepartment } = require('./models/employeeDepartment.model');
 let { employeeRole } = require('./models/employeeRole.model');
 let app = express();
 app.use(express.json());
-let port = 3000;
+const port = process.env.PORT || 3000; 
+
 
 
 //Helper Functions//
@@ -44,16 +45,17 @@ async function getEmployeeRole(roleId) {
 };
 
 // Helper function to get employee details with associated departments and roles
+// Helper function to get employee details with associated departments and roles
 async function getEmployeeDetails(employeeData) {
   const department = await getEmployeeDepartments(employeeData.id);
   const role = await getEmployeeRoles(employeeData.id);
-
+  
   return {
     ...employeeData.dataValues,
     department,
     role,
   };
-};
+}
 
 //------------------------------------------------------------------------------------------------------------------------------------------//
 
